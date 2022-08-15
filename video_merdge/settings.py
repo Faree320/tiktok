@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0z5xzvvq2nu&*^8izq2s79i1g!o^y38jjpjsug9nq$1qlvlxh8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'tiktok-video-editor-7778.herokuapp.com']
 
 
 # Application definition

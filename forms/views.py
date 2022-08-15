@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from .forms import GetLinkForm
 import urllib
-from moviepy.editor import VideoFileClip, concatenate_videoclips
+import random
+from moviepy.editor import VideoFileClip, concatenate_videoclips, clips_array
 import os
 
 # Create your views here.
@@ -16,8 +17,9 @@ def upload_link_form(request):
         clip1 = VideoFileClip("./static/video/your_video_name1.mp4", audio=True)
         clip2 = VideoFileClip("./static/video/your_video_name2.mp4", audio=True)
         clip3 = VideoFileClip("./static/video/your_video_name3.mp4", audio=True)
-        final_clip = concatenate_videoclips([clip1, clip2, clip3], method="compose")
-        final_clip.write_videofile("./static/video/merged.mp4")
+        ran = random.randint(0, 1000)
+        final_clip = clips_array([[clip1, clip2, clip3]])
+        final_clip.write_videofile(f"./static/video/{ran}merged.mp4")
         os.remove("./static/video/your_video_name1.mp4")
         os.remove("./static/video/your_video_name2.mp4")
         os.remove("./static/video/your_video_name3.mp4")
