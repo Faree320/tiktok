@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Paste Your Link</h1>
+    <form action="" method="POST">
+    {% csrf_token %}
+    {% for fields in form %}
+        {{ fields }}
+    {% endfor %}
+        <button class="btn btn-success mt-3" type="submit">Submit</button>
+</form>
+</div>
+{% endblock %}
