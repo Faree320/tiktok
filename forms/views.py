@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render
 from .forms import GetLinkForm
 import urllib
@@ -20,9 +22,10 @@ def upload_link_form(request):
         ran = random.randint(0, 1000)
         final_clip = clips_array([[clip1, clip2, clip3]])
         final_clip.write_videofile(f"./static/video/{ran}merged.mp4")
-        os.remove("./static/video/your_video_name1.mp4")
-        os.remove("./static/video/your_video_name2.mp4")
-        os.remove("./static/video/your_video_name3.mp4")
+        # time.sleep(3)
+        # os.remove("./static/video/your_video_name1.mp4")
+        # os.remove("./static/video/your_video_name2.mp4")
+        # os.remove("./static/video/your_video_name3.mp4")
     else:
         form = GetLinkForm()
 
