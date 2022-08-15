@@ -19,6 +19,7 @@ def upload_link_form(request):
         urllib.request.urlretrieve(request.POST['link1'], PATH_1)
         urllib.request.urlretrieve(request.POST['link2'], PATH_2)
         urllib.request.urlretrieve(request.POST['link3'], PATH_3)
+        time.sleep(10)
         clip1 = VideoFileClip("./static/video/your_video_name1.mp4", audio=True)
         clip2 = VideoFileClip("./static/video/your_video_name2.mp4", audio=True)
         clip3 = VideoFileClip("./static/video/your_video_name3.mp4", audio=True)
