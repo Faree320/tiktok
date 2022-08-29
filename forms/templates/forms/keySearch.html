@@ -1,0 +1,31 @@
+
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="body">
+        <form action="{% url 'upload_link_form' %}" method="GET">
+            <div class="input-box">
+                <input type="text" name="genre" class="input" value="{{request.GET.genre}}">
+                <span class="icon">
+                    <i class="uil uil-search search-icon"></i>
+                    <button style="display: none;" type="submit">submit</button>
+                </span>
+                <i class="uil uil-times close-icon"></i>
+
+
+            </div>
+        </form>
+        <br>
+</div>
+<div class="auto">
+    <div class="wrap">
+  <a href="{% url 'auto-generator' %}" class="button">Auto Generate</a>
+</div>
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+
+{% endblock %}

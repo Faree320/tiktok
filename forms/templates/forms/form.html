@@ -1,15 +1,171 @@
+
 {% extends 'main.html' %}
-
-
 {% block content %}
-<div class="container">
-    <h1>Paste Your Link</h1>
+<style>
+     .html {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .body {
+    background: linear-gradient(to bottom right, #14151c, black, #080b1f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    height: 100%;
+    color: #ededed;
+  }
+
+  #container {
+    display: flex;
+    width: 500px;
+    height: 25px;
+    background: black;
+    border-radius: 6px;
+    border: 2px solid dimgray;
+    align-items: center;
+  }
+
+  @keyframes load {
+    from {transform: translate(0, 0)}
+    to {transform: translate(390px, 0)}
+  }
+
+  #bar {
+    width: 100px;
+    height: 10px;
+    background: linear-gradient(to bottom right, cyan, lightblue);
+    border-radius: 6px;
+    box-shadow: 0 0 10px lightblue;
+
+    animation: load .25s infinite alternate ease-in-out;
+  }
+
+  @keyframes dots {
+    from {color: cyan; transform: translate(0, -10%);}
+    to {color: white; transform: translate(0, 0);}
+  }
+
+  .dot {
+    display: inline-block;
+    font-size: 250%;
+  }
+
+  .dot:nth-child(1) {
+    animation: dots .5s infinite alternate linear;
+  }
+
+  .dot:nth-child(2) {
+    animation: dots 1s infinite alternate linear;
+  }
+
+  .dot:nth-child(3) {
+    animation: dots 1.5s infinite alternate linear;
+  }
+.html{
+  display: none;
+}
+</style>
+
+<div class="html">
+      <div class="body">
+        <main>
+          <h3>
+            Your Video is being created &nbsp;&nbsp;<span class="dot">.</span
+            ><span class="dot">.</span><span class="dot">.</span>
+          </h3>
+          <div id="container">
+            <div id="bar"></div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <div class="preloader">
+        <div class="chaotic-orbit"></div>
+    </div>
+
+<div class="container main">
+    <h1>{{message}}</h1>
+
+
+<!--    {% for fields in form %}-->
+<!--        {{ fields }}-->
+<!--    {% endfor %}-->
+
     <form action="" method="POST">
     {% csrf_token %}
-    {% for fields in form %}
-        {{ fields }}
-    {% endfor %}
-        <button class="btn btn-success mt-3" type="submit">Submit</button>
-</form>
-</div>
+    <div class="row">
+        {% if link != '' %}
+        {% for i, c in data %}
+            <div class="col-4">
+            <input type="checkbox" value="{{i}}" id="check-box" name="{{ forloop.counter }}" class="form-check-input check">
+     <video
+      id="my-video"
+      class="video-js vjs-big-play-centered"
+      controls
+      preload="none"
+      poster="{{c}}"
+      width="280"
+      height="240"
+      data-setup="{}"
+
+    >
+      <source
+        src="{{i}}"
+        type="video/mp4"
+      />
+         <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+    </video>
+            </div>
+        {% endfor %}
+        {% endif %}
+            </div>
+                    <button class="btn btn-success mt-3" type="submit" onclick="loader()">Submit</button>
+
+    </form>
+    </div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+    $(window).on('load', function () {
+        $(".preloader").fadeOut(1000);
+        $(".main").fadeIn(1000);
+    })
+
+
+    $(".check").change(function()
+{
+    let arr_sort = new Array();
+    $(".check").each(function() {
+        if( $(this).is(':checked')) {
+            if ($('input[type="checkbox"]:checked').length <= 3) {
+            arr_sort.push($(this).val());
+            }
+    }
+    });
+    console.log( arr_sort );
+});
+    $('input[type=checkbox]').on('change', function (e) {
+    if ($('input[type=checkbox]:checked').length > 3) {
+        $(this).prop('checked', false);
+        swal("Error", "You can only select 3 videos at a time", "error");
+    }
+});
+
+    function loader(){
+        $(".html").fadeIn(1000);
+        document.querySelector('.main').style.display = 'none'
+    }
+
+</script>
+
 {% endblock %}
